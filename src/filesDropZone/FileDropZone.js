@@ -23,7 +23,7 @@ function FileDropZone({ onDrop }) {
             <Text className='dropText' >CLICK ON THE BUTTON OR DRAG & DROP FILES HERE</Text>
                 <input {...getInputProps()} />
                 <Box w={300} >
-                    <Button fullWidth color={'blue'} leftIcon={<BsUpload />} >Upload Video </Button>
+                    <Button fullWidth color={'blue'} leftIcon={<BsUpload size={25}/>} ><Text style={{fontSize:"larger"}}>Upload Video</Text></Button>
                 </Box>
             </div>
         </div>

@@ -5,30 +5,11 @@
     box-shadow: 10px 10px 5px grey;
     margin: 20px;
     background-color: whitesmoke;
+    position: relative;
 }
-
-.fileandprogress {
-    display: flex;
-    flex-direction: column;
-}
-
-.triangleright {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
-.progress>div:first-child {
-    flex: 0.2;
-}
-
-.progress>div:last-child {
-    flex: 0.8;
-}
-
-.uploader {
-    padding: 10px;
+.uploader{
+    width: 80%;
+    position: relative;
 }
 
 .close-btn {
@@ -39,15 +20,46 @@
     z-index: 1;
 }
 
+.closeandprogress{
+    position: relative;
+}
+.progress>div:first-child {
+    flex: 0.2;
+}
+
+.progress>div:last-child {
+    flex: 0.8;
+}
+
+.triangleright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.fileandprogress{
+    display: flex;
+    align-items:flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.progressBar{
+    width: 90%;
+    height: 30%;
+}
+
+.progressLabel{
+    font-size:large;
+}
+
 .video{
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;
 }
-
-.closeandprogress{
-    position: relative;
-}   
 
 .uploadError{
     color: red;
@@ -62,10 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.progressBar{
-    height: 50%;
+    background-color: red;
 }
 
 .fileName{

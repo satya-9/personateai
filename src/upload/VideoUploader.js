@@ -16,10 +16,14 @@ function VideoUploader() {
     const [errorInUpload, setErrorInUpload] = useState("")
 
     const progressElementVisible = () => {
-        setProgress(0)
-        setVisibleProgress(false)
-        setVideoUrl(null)
-        setFileName("")
+        if (progress === 100) {
+            setProgress(0)
+            setVisibleProgress(false)
+            setVideoUrl(null)
+            setFileName("")
+            setModalOpen(true)
+            setErrorInUpload(`Please enter valid video extension file of mp4 format `)
+        }
     }
 
     const handleDrop = async (file) => {
@@ -39,7 +43,7 @@ function VideoUploader() {
         const s3 = new S3({
             signatureVersion: 'v4'
         });
-
+        console.log(fileName)
         const params = {
             Bucket: process.env.REACT_APP_BUCKET,
             Key: file.name,
@@ -55,11 +59,6 @@ function VideoUploader() {
         // Generate the pre-signed URL for a PUT operation
         const url = s3.getSignedUrl('putObject', params);
 
-        // const options = {
-        //     partSize: 1024 * 1024 * 5, // 5 MB
-        //     queueSize: 1,
-        // };
-
         await axios.put(url, file, {
             headers: {
                 'Content-Type': 'video/mp4'
@@ -69,8 +68,7 @@ function VideoUploader() {
                 setProgress(percentCompleted)
                 setVisibleProgress(true)
             }
-
-        }).then(async () => {
+        }).then(async (response) => {
             const videoUrl = s3.getSignedUrl('getObject', videoParams)
             setVideoUrl(videoUrl)
         }).catch(error => {
@@ -83,12 +81,12 @@ function VideoUploader() {
         <div className='uploader'>
             {videoUrl && (
                 <div className="video">
-                    <iframe src={videoUrl} title={videoUrl} className="video" />
+                    <iframe src={videoUrl} title={videoUrl} className="iframe" />
                 </div>
             )}
             <div className='dropZoneAndProgress'>
                 <FileDropZone onDrop={handleDrop} />
-                {/* {(progress > 0) && (visibleProgress) && ( */}
+                {(progress > 0) && (visibleProgress) && (
                     <div className='closeandprogress'>
                         <div className='close-btn' onClick={progressElementVisible}>
                             <IoIosCloseCircle size={25} style={{ color: "blue" }} />
@@ -99,12 +97,11 @@ function VideoUploader() {
                             </div>
                             <div className='fileandprogress'>
                                 <Text className='fileName'>{fileName}</Text>
-                                <Progress value={progress} label={progress} className="progressBar" />
+                                <Progress value={progress} label={<Text className='progressLabel'>{progress}</Text>} className="progressBar" />
                             </div>
                         </div>
                     </div>
-                {/* )
-                } */}
+                )}
             </div>
             <Modal opened={modalOpen}
                 closeButtonProps={{ color: 'blue' }}
