@@ -12,7 +12,7 @@ function VideoUploader() {
     const [videoUrl, setVideoUrl] = useState(null);
     const [fileName, setFileName] = useState("")
     const [visibleProgress, setVisibleProgress] = useState(false);
-    const [modalOpen, setModalOpen] = useState(true)
+    const [modalOpen, setModalOpen] = useState(false)
     const [errorInUpload, setErrorInUpload] = useState("")
 
     const progressElementVisible = () => {

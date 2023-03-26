@@ -21,3 +21,7 @@
     justify-content: center;
     flex-direction: column;
 }
+
+.uploadVideoButton:hover{
+    cursor: pointer;
+}
