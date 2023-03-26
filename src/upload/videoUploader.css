@@ -35,7 +35,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(150%, -50%);
+    transform: translate(0%, -50%);
     z-index: 1;
 }
 
@@ -48,3 +48,26 @@
 .closeandprogress{
     position: relative;
 }   
+
+.uploadError{
+    color: red;
+    font-size: large;
+}
+.modalTitle{
+    color: blue;
+    font-size: large;
+}
+
+.modalComponent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progressBar{
+    height: 50%;
+}
+
+.fileName{
+    color: blue;
+}

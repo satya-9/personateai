@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Progress, Text } from '@mantine/core';
+import { Progress, Text, Modal } from '@mantine/core';
 import FileDropZone from '../filesDropZone/FileDropZone';
 import { S3, config } from 'aws-sdk';
 import axios from "axios";
@@ -12,17 +12,21 @@ function VideoUploader() {
     const [videoUrl, setVideoUrl] = useState(null);
     const [fileName, setFileName] = useState("")
     const [visibleProgress, setVisibleProgress] = useState(false);
+    const [modalOpen, setModalOpen] = useState(true)
+    const [errorInUpload, setErrorInUpload] = useState("")
 
-    const progressElementVisible=()=>{
+    const progressElementVisible = () => {
         setProgress(0)
         setVisibleProgress(false)
         setVideoUrl(null)
+        setFileName("")
     }
 
     const handleDrop = async (file) => {
         setProgress(0);
         if (file.type !== 'video/mp4') {
-            alert('Please select an MP4 file.');
+            setModalOpen(true)
+            setErrorInUpload(`Please enter valid video extension file of mp4 format `)
             return;
         }
 
@@ -66,11 +70,12 @@ function VideoUploader() {
                 setVisibleProgress(true)
             }
 
-        }).then(() => {
-            const videoUrl = s3.getSignedUrl('getObject', videoParams);
+        }).then(async () => {
+            const videoUrl = s3.getSignedUrl('getObject', videoParams)
             setVideoUrl(videoUrl)
         }).catch(error => {
-            console.error('Error uploading file:', error);
+            setModalOpen(true)
+            setErrorInUpload(error)
         });
     };
 
@@ -83,7 +88,7 @@ function VideoUploader() {
             )}
             <div className='dropZoneAndProgress'>
                 <FileDropZone onDrop={handleDrop} />
-                {(progress > 0) && (visibleProgress) && (
+                {/* {(progress > 0) && (visibleProgress) && ( */}
                     <div className='closeandprogress'>
                         <div className='close-btn' onClick={progressElementVisible}>
                             <IoIosCloseCircle size={25} style={{ color: "blue" }} />
@@ -93,14 +98,21 @@ function VideoUploader() {
                                 <GoTriangleRight size={40} width={100} style={{ color: "blue" }} />
                             </div>
                             <div className='fileandprogress'>
-                                <Text>{fileName}</Text>
-                                <Progress value={progress} />
+                                <Text className='fileName'>{fileName}</Text>
+                                <Progress value={progress} label={progress} className="progressBar" />
                             </div>
                         </div>
                     </div>
-                )
-                }
+                {/* )
+                } */}
             </div>
+            <Modal opened={modalOpen}
+                closeButtonProps={{ color: 'blue' }}
+                onClose={() => { setModalOpen(false) }}
+                title={<Text className='modalTitle'> Video Uploading Error</Text>}
+                className="modalComponent">
+                <Text className='uploadError'>{errorInUpload}</Text>
+            </Modal>
 
         </div>
     );
