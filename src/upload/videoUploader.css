@@ -1,0 +1,50 @@
+.progress {
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+    box-shadow: 10px 10px 5px grey;
+    margin: 20px;
+    background-color: whitesmoke;
+}
+
+.fileandprogress {
+    display: flex;
+    flex-direction: column;
+}
+
+.triangleright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.progress>div:first-child {
+    flex: 0.2;
+}
+
+.progress>div:last-child {
+    flex: 0.8;
+}
+
+.uploader {
+    padding: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(150%, -50%);
+    z-index: 1;
+}
+
+.video{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeandprogress{
+    position: relative;
+}   

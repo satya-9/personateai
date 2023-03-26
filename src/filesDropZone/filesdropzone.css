@@ -1,0 +1,33 @@
+.filesText{
+    /* font-weight:bold;
+    display: flex;
+    flex-direction: column;
+    margin:"10px" */
+}
+
+.uploadText{
+    font-size:xx-large;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropText{
+    font-size:medium;
+    margin: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropFiles{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.videoButton{
+ 
+}
