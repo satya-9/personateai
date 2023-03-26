@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Progress, Text } from '@mantine/core';
+import { Progress, Text } from '@mantine/core';
 import FileDropZone from '../filesDropZone/FileDropZone';
 import { S3, config } from 'aws-sdk';
 import axios from "axios";
@@ -51,10 +51,10 @@ function VideoUploader() {
         // Generate the pre-signed URL for a PUT operation
         const url = s3.getSignedUrl('putObject', params);
 
-        const options = {
-            partSize: 1024 * 1024 * 5, // 5 MB
-            queueSize: 1,
-        };
+        // const options = {
+        //     partSize: 1024 * 1024 * 5, // 5 MB
+        //     queueSize: 1,
+        // };
 
         await axios.put(url, file, {
             headers: {
@@ -78,7 +78,7 @@ function VideoUploader() {
         <div className='uploader'>
             {videoUrl && (
                 <div className="video">
-                    <iframe src={videoUrl} className="video" />
+                    <iframe src={videoUrl} title={videoUrl} className="video" />
                 </div>
             )}
             <div className='dropZoneAndProgress'>

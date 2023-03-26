@@ -11,8 +11,8 @@ function FileDropZone({ onDrop }) {
         onDrop(file);
     }, [onDrop]);
 
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        accept: 'video/mp4',
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: ["video/mp4"],
         onDrop: handleDrop,
     });
 
