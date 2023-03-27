@@ -21,8 +21,6 @@ function VideoUploader() {
             setVisibleProgress(false)
             setVideoUrl(null)
             setFileName("")
-            setModalOpen(true)
-            setErrorInUpload(`Please enter valid video extension file of mp4 format `)
         }
     }
 
@@ -35,6 +33,7 @@ function VideoUploader() {
         }
 
         setFileName(file.name)
+        setVideoUrl(null)
         config.update({
             accessKeyId: process.env.REACT_APP_ACCESSKEYID,
             secretAccessKey: process.env.REACT_APP_SECRETACCESSKEY,
@@ -87,10 +86,14 @@ function VideoUploader() {
             <div className='dropZoneAndProgress'>
                 <FileDropZone onDrop={handleDrop} />
                 {(progress > 0) && (visibleProgress) && (
+
                     <div className='closeandprogress'>
-                        <div className='close-btn' onClick={progressElementVisible}>
-                            <IoIosCloseCircle size={25} style={{ color: "blue" }} />
-                        </div>
+                        {(progress === 100) &&
+                            (
+                                <div className='close-btn' onClick={progressElementVisible}>
+                                    <IoIosCloseCircle size={25} style={{ color: "blue" }} />
+                                </div>
+                            )}
                         <div className='progress'>
                             <div className='triangleright'>
                                 <GoTriangleRight size={40} width={100} style={{ color: "blue" }} />
