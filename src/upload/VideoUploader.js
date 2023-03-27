@@ -40,7 +40,12 @@ function VideoUploader() {
             region: process.env.REACT_APP_REGION,
         });
         const s3 = new S3({
-            signatureVersion: 'v4'
+            signatureVersion: 'v4',
+            httpOptions: {
+                maxBodyLength: 1073741824,
+                maxContentLength: 1073741824,
+                minContentLength: 52428800
+              }
         });
         console.log(fileName)
         const params = {
@@ -72,7 +77,9 @@ function VideoUploader() {
             setVideoUrl(videoUrl)
         }).catch(error => {
             setModalOpen(true)
-            setErrorInUpload(error)
+            setErrorInUpload(`Error in uploading the file `)
+            setVisibleProgress(false)
+            setVideoUrl(null)
         });
     };
 
